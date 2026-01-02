@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/docs/" />
+  <Folder Name="/infra/" />
+  <Folder Name="/src/">
+    <Project Path="src/ProjectName.Web.Api/ProjectName.Web.Api.csproj" />
+    <Project Path="src/ProjectName.AppHost/ProjectName.AppHost.csproj" />
+    <Project Path="src/ProjectName.Application/ProjectName.Application.csproj" Id="ac8d67ad-8a80-4e58-b6ac-6e6e3380c3c6" />
+    <Project Path="src/ProjectName.Domain/ProjectName.Domain.csproj" Id="2d459f0d-bab2-4652-aade-9f2c7995440e" />
+    <Project Path="src/ProjectName.Infrastructure/ProjectName.Infrastructure.csproj" Id="2055a422-1856-4eac-b0b8-28ef04e7a45c" />
+    <Project Path="src/ProjectName.ServiceDefaults/ProjectName.ServiceDefaults.csproj" />
+    <Project Path="src/ProjectName.Web/ProjectName.Web.csproj" />
+    <Project Path="src/ProjectName.Worker/ProjectName.Worker.csproj" Id="7753683d-c3bd-4d25-991b-eb2f954c572d" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>
