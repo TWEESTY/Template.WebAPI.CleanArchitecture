@@ -1,10 +1,11 @@
+using FluentResults;
 using ProjectName.Application.Common.Errors;
 
 namespace ProjectName.Web.Api.Common.Problems;
 
 public static class ErrorExtension
 {
-    extension<IError>(IEnumerable<IError> errors){  
+    extension(IEnumerable<IError> errors){  
 
         /// <summary>
         /// Converts validation errors to a dictionary suitable for problem details.
