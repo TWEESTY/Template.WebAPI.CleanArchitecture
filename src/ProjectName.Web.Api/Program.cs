@@ -1,3 +1,4 @@
+using ProjectName.Application.Common.Configuration;
 using ProjectName.Infrastructure.Common.Configuration;
 using ProjectName.Web.Api.Common.Configuration;
 using Serilog;
@@ -21,7 +22,7 @@ try
 
     builder.Services
         .AddWebApiServices(isDevelopment)
-        //.AddApplicationServices()
+        .AddApplicationServices(isDevelopment)
         .AddInfrastructureServices(builder.Configuration, isDevelopment);
 
 

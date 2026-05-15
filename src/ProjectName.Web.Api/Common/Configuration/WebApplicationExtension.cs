@@ -1,3 +1,5 @@
+using ProjectName.Web.Api.Accounts;
+using ProjectName.Web.Api.Pets;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -35,7 +37,8 @@ public static class WebApplicationExtension
 
         private void AddEndpointsGroups()
         {
-            // app.MapHealthChecks("/health").AllowAnonymous();
+            AccountsEndpointsGroup.MapAccountsEndpoints(app);
+            PetsEndpointsGroup.MapPetsEndpoints(app);
         }
     }
 }

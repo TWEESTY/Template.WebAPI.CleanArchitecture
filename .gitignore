@@ -56,3 +56,6 @@ nunit-*.xml
 
 # Visual Studio
 .vs/
+
+# C# Dev Kit
+*.lscache

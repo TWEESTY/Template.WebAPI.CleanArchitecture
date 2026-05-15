@@ -3,7 +3,7 @@ using ProjectName.Application.Common.Identity;
 
 namespace ProjectName.Web.Api.Common.Identity;
 
-public class CurrentUser(IHttpContextAccessor httpContextAccessor) : IUser
+public class CurrentUser(IHttpContextAccessor httpContextAccessor) : ICurrentUser
 {   
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
     

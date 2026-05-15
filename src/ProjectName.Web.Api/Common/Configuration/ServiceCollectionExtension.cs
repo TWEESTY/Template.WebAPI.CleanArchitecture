@@ -34,7 +34,7 @@ public static class ServiceCollectionExtension
                     | HttpLoggingFields.Duration;
             });
 
-            services.AddScoped<IUser, CurrentUser>();
+            services.AddScoped<ICurrentUser, CurrentUser>();
 
             services.AddHttpContextAccessor();
 

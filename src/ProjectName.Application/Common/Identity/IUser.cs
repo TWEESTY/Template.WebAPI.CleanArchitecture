@@ -1,6 +1,6 @@
 namespace ProjectName.Application.Common.Identity;
 
-public interface IUser
+public interface ICurrentUser
 {
     string? Id { get; }
     IList<string> Roles { get; }
