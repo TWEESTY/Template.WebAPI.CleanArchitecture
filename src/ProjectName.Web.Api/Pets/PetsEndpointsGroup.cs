@@ -1,6 +1,3 @@
-using Mediator;
-using Microsoft.AspNetCore.Mvc;
-using ProjectName.Web.Api.Common.Search;
 using ProjectName.Web.Api.Pets.Commands;
 using ProjectName.Web.Api.Pets.Queries;
 
@@ -22,6 +19,11 @@ public static class PetsEndpointsGroup
             .WithDisplayName("Get Pets")
             .WithSummary("Retrieves a list of pets.")
             .WithDescription("This endpoint returns a list of pets based on the provided search parameters.");
+
+        group.MapGet("{id:guid}", GetPetEndpoint.HandleAsync)
+            .WithDisplayName("Get Pet by ID")
+            .WithSummary("Retrieves a pet by its ID.")
+            .WithDescription("This endpoint returns the details of a pet identified by the provided ID.");
 
         group.MapPost(string.Empty, CreatePetEndpoint.HandleAsync)
             .WithDisplayName("Create Pet")
