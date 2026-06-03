@@ -13,10 +13,9 @@ using ProjectName.Infrastructure.GraphApi.Options;
 
 namespace ProjectName.Infrastructure.Common.Configuration;
 
-public static partial class ServiceCollectionExtension
+public static class ServiceCollectionExtension
 {
-    [GeneratedRegex(@"^/api/v\d+/account/login$", RegexOptions.IgnoreCase)]
-    private static partial Regex RegexForLoginPath();
+    private static readonly Regex LoginPathRegex = new(@"^/api/v\d+/account/login$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     extension(IServiceCollection services)
     {        
@@ -65,7 +64,7 @@ public static partial class ServiceCollectionExtension
 
                 options.Events.OnRedirectToIdentityProvider += context =>
                 {
-                    var regex = RegexForLoginPath();
+                    var regex = LoginPathRegex;
                     if (regex.IsMatch(context.Request.Path))
                         return Task.CompletedTask;
 

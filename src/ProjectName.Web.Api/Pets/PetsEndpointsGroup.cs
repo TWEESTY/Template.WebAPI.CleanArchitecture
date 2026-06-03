@@ -12,8 +12,7 @@ public static class PetsEndpointsGroup
     {
         var group = app.MapGroup(BasePath)
             .WithTags(GroupName)
-            //.RequireAuthorization();
-            .AllowAnonymous();      
+            .RequireAuthorization();
 
         group.MapGet(string.Empty, GetPetsEndpoint.HandleAsync)
             .WithDisplayName("Get Pets")

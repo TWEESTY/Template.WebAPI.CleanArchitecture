@@ -12,6 +12,7 @@ public class EntraIDOptions
     public required string TenantId { get; set; }
     public required string CallbackPath { get; set; } = "/signin-oidc";
     public required string SignedOutCallbackPath { get; set; } = "/signout-oidc";
+    public required string ApiScope { get; set; }
     public required string ErrorPath { get; set; } = "/error";
     public required string CustomErrorPath { get; set; } = "https://localhost:4200/login";
 

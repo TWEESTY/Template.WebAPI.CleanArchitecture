@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using ProjectName.Infrastructure.Common.Identity.Options;
 using ProjectName.Web.Api.Accounts;
 using ProjectName.Web.Api.Pets;
 using Scalar.AspNetCore;
@@ -22,7 +24,18 @@ public static class WebApplicationExtension
             if (isDevelopment)
             {
                 app.MapOpenApi();
-                app.MapScalarApiReference();
+                var entraOptions = app.Services.GetRequiredService<IOptions<EntraIDOptions>>().Value;
+                app.MapScalarApiReference(options => options
+                    .AddPreferredSecuritySchemes("OAuth2")
+                    .AddAuthorizationCodeFlow("OAuth2", flow =>
+                    {
+                        flow.ClientId = entraOptions.ClientId;
+                        flow.ClientSecret = entraOptions.ClientSecret;
+                        flow.Pkce = Pkce.No;
+                        flow.RedirectUri = "https://localhost:7310/scalar/v1";
+                        flow.CredentialsLocation = CredentialsLocation.Body;
+                    })
+                    .EnablePersistentAuthentication());
             }
 
             app.UseHttpsRedirection();
