@@ -1,15 +1,20 @@
 using System.Text.RegularExpressions;
+using System.IO;
 using Azure.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 using ProjectName.Infrastructure.Common.Identity.Options;
 using ProjectName.Infrastructure.GraphApi.Options;
+using ProjectName.Infrastructure.Persistence;
+using ProjectName.Infrastructure.Persistence.Options;
 
 namespace ProjectName.Infrastructure.Common.Configuration;
 
@@ -22,6 +27,7 @@ public static class ServiceCollectionExtension
         public IServiceCollection AddInfrastructureServices(ConfigurationManager configurationManager, bool isDevelopment)
         {
             RegisterAuthentication(services, configurationManager)
+                .RegisterPersistence(configurationManager, isDevelopment)
                 .RegisterGraphApiOnBehalfApp(configurationManager)
                 .RegisterRepositories(configurationManager)
                 .RegisterHttpClients(configurationManager);
@@ -29,6 +35,52 @@ public static class ServiceCollectionExtension
             services.AddMemoryCache();
 
             return services;
+        }
+
+        private IServiceCollection RegisterPersistence(ConfigurationManager configurationManager, bool isDevelopment)
+        {
+            services.Configure<DataOptions>(configurationManager.GetSection(DataOptions.Key));
+
+            services.AddDbContext<AppDbContext>((serviceProvider, optionsBuilder) =>
+            {
+                DataOptions dataOptions = serviceProvider.GetRequiredService<IOptions<DataOptions>>().Value;
+
+                string sqliteFileName = dataOptions.SqliteFileName;
+                if (string.IsNullOrWhiteSpace(sqliteFileName))
+                {
+                    sqliteFileName = isDevelopment ? "projectname.dev.db" : "projectname.db";
+                }
+
+                string repositoryRoot = ResolveRepositoryRoot();
+                string databaseFolder = Path.Combine(repositoryRoot, dataOptions.DatabaseRelativePathFromRepositoryRoot);
+                Directory.CreateDirectory(databaseFolder);
+
+                string sqliteFilePath = Path.Combine(databaseFolder, sqliteFileName);
+                optionsBuilder.UseSqlite($"Data Source={sqliteFilePath}");
+            });
+
+            services.AddScoped<ApplicationDbContextInitialiser>();
+
+            return services;
+        }
+
+        private static string ResolveRepositoryRoot()
+        {
+            string currentPath = Directory.GetCurrentDirectory();
+            var directoryInfo = new DirectoryInfo(currentPath);
+
+            while (directoryInfo is not null)
+            {
+                string packagesPropsPath = Path.Combine(directoryInfo.FullName, "Directory.Packages.props");
+                if (File.Exists(packagesPropsPath))
+                {
+                    return directoryInfo.FullName;
+                }
+
+                directoryInfo = directoryInfo.Parent;
+            }
+
+            return currentPath;
         }
 
         private IServiceCollection RegisterAuthentication(ConfigurationManager configurationManager)

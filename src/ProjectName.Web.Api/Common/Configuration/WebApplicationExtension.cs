@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Options;
 using ProjectName.Infrastructure.Common.Identity.Options;
+using ProjectName.Infrastructure.Persistence;
 using ProjectName.Web.Api.Accounts;
 using ProjectName.Web.Api.Pets;
 using Scalar.AspNetCore;
@@ -11,7 +12,7 @@ public static class WebApplicationExtension
 {
     extension(WebApplication app)
     {
-        public WebApplication ConfigureWebApplication(bool isDevelopment)
+        public async Task<WebApplication> ConfigureWebApplicationAsync(bool isDevelopment)
         {
             app.UseRequestLocalization();
 
@@ -20,7 +21,6 @@ public static class WebApplicationExtension
 
             app.UseStatusCodePages();
 
-            // Configure the HTTP request pipeline.
             if (isDevelopment)
             {
                 app.MapOpenApi();
@@ -36,6 +36,11 @@ public static class WebApplicationExtension
                         flow.CredentialsLocation = CredentialsLocation.Body;
                     })
                     .EnablePersistentAuthentication());
+
+                    using IServiceScope scope = app.Services.CreateScope();
+                    var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitialiser>();
+                    await initialiser.InitialiseAsync();
+                    await initialiser.SeedAsync();
             }
 
             app.UseHttpsRedirection();

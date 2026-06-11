@@ -1,5 +1,6 @@
 using ProjectName.Application.Common.Configuration;
 using ProjectName.Infrastructure.Common.Configuration;
+using ProjectName.Infrastructure.Persistence;
 using ProjectName.Web.Api.Common.Configuration;
 using Serilog;
 
@@ -28,8 +29,7 @@ try
 
 
     var app = builder.Build();
-
-    app.ConfigureWebApplication(isDevelopment);
+    await app.ConfigureWebApplicationAsync(isDevelopment);
 
     app.Run();
 }
