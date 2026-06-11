@@ -1,5 +1,5 @@
 using ProjectName.Domain.Enums;
-using ProjectName.Domain.Common.Exceptions;
+using ProjectName.Domain.Common.Guards;
 
 namespace ProjectName.Domain.Entities;
 
@@ -25,9 +25,7 @@ public class Appointment : EntityBase
         DateTime endAtUtc,
         string reason)
     {
-        if (endAtUtc <= startAtUtc)
-            throw new DomainException(
-                "End date must be after start date.");
+        Guard.ThrowIf(endAtUtc <= startAtUtc, nameof(EndAtUtc), "End date must be after start date.");
 
         Id = Guid.NewGuid();
 
@@ -38,7 +36,7 @@ public class Appointment : EntityBase
         StartAtUtc = startAtUtc;
         EndAtUtc = endAtUtc;
 
-        Reason = reason;
+        Reason = Guard.ThrowIfEmptyOrNull(reason?.Trim(), nameof(Reason), "Reason is required.");
 
         Status = AppointmentStatus.Scheduled;
 
@@ -47,9 +45,7 @@ public class Appointment : EntityBase
 
     public void Cancel()
     {
-        if (Status == AppointmentStatus.Completed)
-            throw new DomainException(
-                "Completed appointment cannot be cancelled.");
+        Guard.ThrowIf(Status == AppointmentStatus.Completed, nameof(Status), "Completed appointment cannot be cancelled.");
 
         Status = AppointmentStatus.Cancelled;
 
@@ -58,9 +54,7 @@ public class Appointment : EntityBase
 
     public void Complete()
     {
-        if (Status != AppointmentStatus.Scheduled)
-            throw new DomainException(
-                "Only scheduled appointments can be completed.");
+        Guard.ThrowIfNot(Status == AppointmentStatus.Scheduled, nameof(Status), "Only scheduled appointments can be completed.");
 
         Status = AppointmentStatus.Completed;
 

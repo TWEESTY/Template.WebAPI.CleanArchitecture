@@ -1,3 +1,5 @@
+using ProjectName.Domain.Common.Guards;
+
 namespace ProjectName.Domain.Entities;
 
 public class Veterinarian : EntityBase
@@ -31,22 +33,10 @@ public class Veterinarian : EntityBase
         string email,
         string licenseNumber)
     {
-        if (string.IsNullOrWhiteSpace(firstName))
-            throw new Common.Exceptions.DomainException("First name is required.", nameof(FirstName));
-
-        if (string.IsNullOrWhiteSpace(lastName))
-            throw new Common.Exceptions.DomainException("Last name is required.", nameof(LastName));
-
-        if (string.IsNullOrWhiteSpace(email))
-            throw new Common.Exceptions.DomainException("Email is required.", nameof(Email));
-
-        if (string.IsNullOrWhiteSpace(licenseNumber))
-            throw new Common.Exceptions.DomainException("License number is required.", nameof(LicenseNumber));
-
-        FirstName = firstName.Trim();
-        LastName = lastName.Trim();
-        Email = email.Trim();
-        LicenseNumber = licenseNumber.Trim();
+        FirstName = Guard.ThrowIfEmptyOrNull(firstName?.Trim(), nameof(FirstName), "First name is required.");
+        LastName = Guard.ThrowIfEmptyOrNull(lastName?.Trim(), nameof(LastName), "Last name is required.");
+        Email = Guard.ThrowIfEmptyOrNull(email?.Trim(), nameof(Email), "Email is required.");
+        LicenseNumber = Guard.ThrowIfEmptyOrNull(licenseNumber?.Trim(), nameof(LicenseNumber), "License number is required.");
 
         UpdatedAt = DateTimeOffset.UtcNow;
     }

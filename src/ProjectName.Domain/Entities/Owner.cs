@@ -1,4 +1,4 @@
-using ProjectName.Domain.Common.Exceptions;
+using ProjectName.Domain.Common.Guards;
 
 namespace ProjectName.Domain.Entities;
 
@@ -39,14 +39,8 @@ public class Owner : EntityBase
         string email,
         string phoneNumber)
     {
-        if (string.IsNullOrWhiteSpace(firstName))
-            throw new DomainException("First name is required.");
-
-        if (string.IsNullOrWhiteSpace(lastName))
-            throw new DomainException("Last name is required.");
-
-        FirstName = firstName;
-        LastName = lastName;
+        FirstName = Guard.ThrowIfEmptyOrNull(firstName?.Trim(), nameof(FirstName), "First name is required.");
+        LastName = Guard.ThrowIfEmptyOrNull(lastName?.Trim(), nameof(LastName), "Last name is required.");
         Email = email;
         PhoneNumber = phoneNumber;
 

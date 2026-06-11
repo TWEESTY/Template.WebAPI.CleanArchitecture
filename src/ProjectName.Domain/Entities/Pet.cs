@@ -1,4 +1,5 @@
 using ProjectName.Domain.Common.Exceptions;
+using ProjectName.Domain.Common.Guards;
 using ProjectName.Domain.Enums;
 
 namespace ProjectName.Domain.Entities;
@@ -39,21 +40,17 @@ public class Pet : EntityBase
 
     public void Rename(string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new DomainException("Name is required.");
+        string normalized = Guard.ThrowIfEmptyOrNull(name?.Trim(), nameof(Name), "Name is required.");
+        Guard.ThrowIf(normalized.Length > 100, nameof(Name), "Name is too long.");
 
-        if (name.Length > 100)
-            throw new DomainException("Name is too long.");
-
-        Name = name;
+        Name = normalized;
 
         UpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public void TransferOwnership(Guid newOwnerId)
     {
-        if (newOwnerId == Guid.Empty)
-            throw new DomainException("Owner is required.");
+        Guard.ThrowIf(newOwnerId == Guid.Empty, nameof(OwnerId), "Owner is required.");
 
         OwnerId = newOwnerId;
 
@@ -72,12 +69,10 @@ public class Pet : EntityBase
         Guid veterinarianId,
         DateOnly administeredOn)
     {
-        if (_vaccinations.Any(v =>
-                v.VaccineId == vaccineId))
-        {
-            throw new DomainException(
-                $"Vaccine '{vaccineId}' already exists.");
-        }
+        Guard.ThrowIf(
+            _vaccinations.Any(v => v.VaccineId == vaccineId),
+            nameof(VaccineAdministrations),
+            $"Vaccine '{vaccineId}' already exists.");
 
         _vaccinations.Add(
             new VaccineAdministration(
@@ -94,10 +89,12 @@ public class Pet : EntityBase
         var vaccineAdministration = _vaccinations
             .FirstOrDefault(v => v.Id == vaccineAdministrationId);
 
-        if (vaccineAdministration is null)
-            throw new DomainException("Vaccine administration not found.");
+        VaccineAdministration existingAdministration = Guard.ThrowIfNull(
+            vaccineAdministration,
+            nameof(VaccineAdministrations),
+            "Vaccine administration not found.");
 
-        _vaccinations.Remove(vaccineAdministration);
+        _vaccinations.Remove(existingAdministration);
 
         UpdatedAt = DateTimeOffset.UtcNow;
     }

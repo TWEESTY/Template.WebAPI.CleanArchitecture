@@ -1,3 +1,5 @@
+using ProjectName.Domain.Common.Guards;
+
 namespace ProjectName.Domain.Entities;
 
 public class Vaccine : EntityBase
@@ -23,14 +25,8 @@ public class Vaccine : EntityBase
         string code,
         string name)
     {
-        if (string.IsNullOrWhiteSpace(code))
-            throw new Common.Exceptions.DomainException("Code is required.", nameof(Code));
-
-        if (string.IsNullOrWhiteSpace(name))
-            throw new Common.Exceptions.DomainException("Name is required.", nameof(Name));
-
-        Code = code.Trim();
-        Name = name.Trim();
+        Code = Guard.ThrowIfEmptyOrNull(code?.Trim(), nameof(Code), "Code is required.");
+        Name = Guard.ThrowIfEmptyOrNull(name?.Trim(), nameof(Name), "Name is required.");
 
         UpdatedAt = DateTimeOffset.UtcNow;
     }
