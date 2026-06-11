@@ -39,6 +39,26 @@ public static class PetsEndpointsGroup
             .WithSummary("Deletes an existing pet.")
             .WithDescription("This endpoint deletes an existing pet identified by the provided ID.");
 
+        group.MapPost("{id:guid}/transfer-ownership", TransferPetOwnershipEndpoint.HandleAsync)
+            .WithDisplayName("Transfer Pet Ownership")
+            .WithSummary("Transfers a pet to a new owner.")
+            .WithDescription("This endpoint transfers ownership of a pet to another owner.");
+
+        group.MapGet("{id:guid}/vaccine-administrations", GetPetVaccineAdministrationsEndpoint.HandleAsync)
+            .WithDisplayName("Get Pet Vaccine Administrations")
+            .WithSummary("Retrieves vaccine administrations for a pet.")
+            .WithDescription("This endpoint returns all vaccine administrations for the specified pet.");
+
+        group.MapPost("{id:guid}/vaccine-administrations", AddVaccineAdministrationEndpoint.HandleAsync)
+            .WithDisplayName("Add Vaccine Administration")
+            .WithSummary("Adds a vaccine administration to a pet.")
+            .WithDescription("This endpoint records a vaccine administration for the specified pet.");
+
+        group.MapDelete("{id:guid}/vaccine-administrations/{vaccineAdministrationId:guid}", RemoveVaccineAdministrationEndpoint.HandleAsync)
+            .WithDisplayName("Remove Vaccine Administration")
+            .WithSummary("Removes a vaccine administration from a pet.")
+            .WithDescription("This endpoint removes a vaccine administration record for the specified pet.");
+
         return group;
     }
 }

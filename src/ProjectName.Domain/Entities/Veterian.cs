@@ -20,11 +20,34 @@ public class Veterinarian : EntityBase
     {
         Id = Guid.NewGuid();
 
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        LicenseNumber = licenseNumber;
+        UpdateProfile(firstName, lastName, email, licenseNumber);
 
         CreatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void UpdateProfile(
+        string firstName,
+        string lastName,
+        string email,
+        string licenseNumber)
+    {
+        if (string.IsNullOrWhiteSpace(firstName))
+            throw new Common.Exceptions.DomainException("First name is required.", nameof(FirstName));
+
+        if (string.IsNullOrWhiteSpace(lastName))
+            throw new Common.Exceptions.DomainException("Last name is required.", nameof(LastName));
+
+        if (string.IsNullOrWhiteSpace(email))
+            throw new Common.Exceptions.DomainException("Email is required.", nameof(Email));
+
+        if (string.IsNullOrWhiteSpace(licenseNumber))
+            throw new Common.Exceptions.DomainException("License number is required.", nameof(LicenseNumber));
+
+        FirstName = firstName.Trim();
+        LastName = lastName.Trim();
+        Email = email.Trim();
+        LicenseNumber = licenseNumber.Trim();
+
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 }

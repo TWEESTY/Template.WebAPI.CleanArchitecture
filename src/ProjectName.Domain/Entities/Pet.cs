@@ -52,7 +52,17 @@ public class Pet : EntityBase
 
     public void TransferOwnership(Guid newOwnerId)
     {
+        if (newOwnerId == Guid.Empty)
+            throw new DomainException("Owner is required.");
+
         OwnerId = newOwnerId;
+
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void ChangeBirthDate(DateOnly birthDate)
+    {
+        BirthDate = birthDate;
 
         UpdatedAt = DateTimeOffset.UtcNow;
     }

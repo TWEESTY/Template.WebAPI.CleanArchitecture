@@ -14,9 +14,24 @@ public class Vaccine : EntityBase
         string name)
     {
         Id = Guid.NewGuid();
-        Code = code;
-        Name = name;
+        UpdateDetails(code, name);
 
         CreatedAt = DateTimeOffset.UtcNow;
+    }
+
+    public void UpdateDetails(
+        string code,
+        string name)
+    {
+        if (string.IsNullOrWhiteSpace(code))
+            throw new Common.Exceptions.DomainException("Code is required.", nameof(Code));
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new Common.Exceptions.DomainException("Name is required.", nameof(Name));
+
+        Code = code.Trim();
+        Name = name.Trim();
+
+        UpdatedAt = DateTimeOffset.UtcNow;
     }
 }

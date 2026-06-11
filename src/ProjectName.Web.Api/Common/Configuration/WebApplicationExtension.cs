@@ -2,7 +2,12 @@ using Microsoft.Extensions.Options;
 using ProjectName.Infrastructure.Common.Identity.Options;
 using ProjectName.Infrastructure.Persistence;
 using ProjectName.Web.Api.Accounts;
+using ProjectName.Web.Api.Appointments;
+using ProjectName.Web.Api.Clinics;
+using ProjectName.Web.Api.Owners;
 using ProjectName.Web.Api.Pets;
+using ProjectName.Web.Api.Vaccines;
+using ProjectName.Web.Api.Veterinarians;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -57,6 +62,11 @@ public static class WebApplicationExtension
         {
             AccountsEndpointsGroup.MapAccountsEndpoints(app);
             PetsEndpointsGroup.MapPetsEndpoints(app);
+            ClinicsEndpointsGroup.MapClinicsEndpoints(app);
+            VeterinariansEndpointsGroup.MapVeterinariansEndpoints(app);
+            VaccinesEndpointsGroup.MapVaccinesEndpoints(app);
+            OwnersEndpointsGroup.MapOwnersEndpoints(app);
+            AppointmentsEndpointsGroup.MapAppointmentsEndpoints(app);
         }
     }
 }

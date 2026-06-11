@@ -16,7 +16,11 @@ public static class CreatePetEndpoint
         [FromServices] IMediator mediator, 
         [FromBody] CreatePetEndpointRequest request)
     {
-        Result<GetPetResponse> result = await mediator.Send(new CreatePetCommand(request.Name, request.BirthDate));
+        Result<GetPetResponse> result = await mediator.Send(new CreatePetCommand(
+            request.OwnerId,
+            request.Name,
+            request.Species,
+            request.BirthDate));
 
         if(result.IsSuccess)
             return TypedResults.Ok(GetPetCommonResponseEndpoint.Create(result.Value));
@@ -33,4 +37,5 @@ public static class CreatePetEndpoint
         return TypedResults.InternalServerError();
     }
 
-    public record CreatePetEndpointRequest(string Name, DateTimeOffset BirthDate);}
+    public record CreatePetEndpointRequest(Guid OwnerId, string Name, int Species, DateTimeOffset BirthDate);
+}

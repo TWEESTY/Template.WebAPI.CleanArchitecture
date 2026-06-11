@@ -12,6 +12,11 @@ using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
 using ProjectName.Application.Clinics.Common;
+using ProjectName.Application.Appointments.Common;
+using ProjectName.Application.Owners.Common;
+using ProjectName.Application.Pets.Common;
+using ProjectName.Application.Vaccines.Common;
+using ProjectName.Application.Veterinarians.Common;
 using ProjectName.Infrastructure.Common.Identity.Options;
 using ProjectName.Infrastructure.GraphApi.Options;
 using ProjectName.Infrastructure.Persistence;
@@ -184,6 +189,11 @@ public static class ServiceCollectionExtension
         private IServiceCollection RegisterRepositories(ConfigurationManager configurationManager)
         {
             services.AddScoped<IClinicRepository, ClinicRepository>();
+            services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IVeterinarianRepository, VeterinarianRepository>();
+            services.AddScoped<IVaccineRepository, VaccineRepository>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
             return services;
         }
