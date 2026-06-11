@@ -11,13 +11,11 @@ public sealed class DeleteClinicHandler(IClinicRepository clinicRepository) : IC
 {
     async ValueTask<Result> ICommandHandler<DeleteClinicCommand, Result>.Handle(DeleteClinicCommand request, CancellationToken cancellationToken)
     {
-        bool exists = await clinicRepository.ExistsAsync(request.Id, cancellationToken);
-        if (!exists)
+        bool deleted = await clinicRepository.DeleteAsync(request.Id, cancellationToken);
+        if (!deleted)
         {
             return Result.Fail(new NotFoundError($"Clinic '{request.Id}' was not found."));
         }
-
-        await clinicRepository.DeleteAsync(request.Id, cancellationToken);
 
         return Result.Ok();
     }

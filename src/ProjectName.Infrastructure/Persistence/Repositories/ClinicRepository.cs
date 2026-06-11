@@ -40,16 +40,13 @@ public sealed class ClinicRepository(AppDbContext dbContext) : IClinicRepository
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        Clinic? clinic = await dbContext.Clinics.FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
-        if (clinic is null)
-        {
-            return;
-        }
+        int deletedCount = await dbContext.Clinics
+            .Where(c => c.Id == id)
+            .ExecuteDeleteAsync(cancellationToken);
 
-        dbContext.Clinics.Remove(clinic);
-        await dbContext.SaveChangesAsync(cancellationToken);
+        return deletedCount > 0;
     }
 
     public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default)
