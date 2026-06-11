@@ -94,6 +94,14 @@ All generated code must align with the existing patterns below.
 - Async methods: suffix with `Async`.
 - Use meaningful, intention-revealing names; avoid abbreviations unless they are standard and well-known.
 
+## Formatting Rules
+
+- Enable and keep auto-format on save for this workspace.
+- If an `.editorconfig` file exists, formatting and style must follow it strictly.
+- Copilot must always finish code changes in a formatted state.
+- After any Copilot code modification, run formatting for changed files before ending the task.
+- Respect existing whitespace/line endings and avoid unrelated reformatting outside touched files.
+
 ## What Copilot Must Avoid
 
 - Do not bypass Application by injecting DbContext directly into endpoints.
