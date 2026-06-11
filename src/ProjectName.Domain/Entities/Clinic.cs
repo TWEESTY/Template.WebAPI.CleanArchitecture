@@ -1,4 +1,5 @@
 using ProjectName.Domain.Common.Exceptions;
+using ProjectName.Domain.Common.Guards;
 
 namespace ProjectName.Domain.Entities;
 
@@ -42,11 +43,10 @@ public class Clinic : EntityBase
 
     public void AddVeterinarian(Guid veterinarianId)
     {
-        if (_veterinarianIds.Any(v => v == veterinarianId))
-        {
-            throw new DomainException(
-                $"Veterinarian '{veterinarianId}' already exists.", nameof(VeterinarianIds));
-        }
+        Guard.ThrowIf(
+            _veterinarianIds.Any(v => v == veterinarianId),
+            nameof(VeterinarianIds),
+            $"Veterinarian '{veterinarianId}' already exists.");
 
         _veterinarianIds.Add(veterinarianId);
 
@@ -55,11 +55,10 @@ public class Clinic : EntityBase
 
     public void RemoveVeterinarian(Guid veterinarianId)
     {
-        if (_veterinarianIds.All(v => v != veterinarianId))
-        {
-            throw new DomainException(
-                $"Veterinarian '{veterinarianId}' does not exist.", nameof(VeterinarianIds));
-        }
+        Guard.ThrowIfNot(
+            _veterinarianIds.Any(v => v == veterinarianId),
+            nameof(VeterinarianIds),
+            $"Veterinarian '{veterinarianId}' does not exist.");
 
         _veterinarianIds.Remove(veterinarianId);
 
@@ -69,22 +68,12 @@ public class Clinic : EntityBase
     private static string NormalizeName(string name)
     {
         string normalized = name.Trim();
-        if (string.IsNullOrWhiteSpace(normalized))
-        {
-            throw new DomainException("Clinic name cannot be empty.", nameof(Name));
-        }
-
-        return normalized;
+        return Guard.ThrowIfEmptyOrNull(normalized, nameof(Name), "Clinic name cannot be empty.");
     }
 
     private static string NormalizeAddress(string address)
     {
         string normalized = address.Trim();
-        if (string.IsNullOrWhiteSpace(normalized))
-        {
-            throw new DomainException("Clinic address cannot be empty.", nameof(Address));
-        }
-
-        return normalized;
+        return Guard.ThrowIfEmptyOrNull(normalized, nameof(Address), "Clinic address cannot be empty.");
     }
 }
