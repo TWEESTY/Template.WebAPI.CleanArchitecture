@@ -2,6 +2,7 @@ using FluentResults;
 using Mediator;
 using Microsoft.Extensions.Logging;
 using ProjectName.Application.Common.Errors;
+using ProjectName.Domain.Common.Exceptions;
 
 namespace ProjectName.Application.Common.PipelineBehaviors;
 
@@ -27,6 +28,16 @@ public sealed class UnhandledExceptionBehavior<TMessage, TResponse>
         try
         {
             return await next(message, cancellationToken);
+        }
+        catch (DomainException ex)
+        {
+            var requestName = typeof(TMessage).Name;
+            _logger.LogWarning(ex, "Domain Exception for Message {Name} {@Request}", requestName, message);
+
+            var result = new TResponse();
+            string propertyName = ex.PropertyName ?? nameof(TMessage);
+            result.Reasons.Add(new ValidationError(propertyName, ex.Message));
+            return result;
         }
         catch (Exception ex)
         {

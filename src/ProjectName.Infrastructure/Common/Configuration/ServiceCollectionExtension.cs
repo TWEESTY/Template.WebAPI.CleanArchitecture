@@ -11,10 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
+using ProjectName.Application.Clinics.Common;
 using ProjectName.Infrastructure.Common.Identity.Options;
 using ProjectName.Infrastructure.GraphApi.Options;
 using ProjectName.Infrastructure.Persistence;
 using ProjectName.Infrastructure.Persistence.Options;
+using ProjectName.Infrastructure.Persistence.Repositories;
 
 namespace ProjectName.Infrastructure.Common.Configuration;
 
@@ -181,7 +183,8 @@ public static class ServiceCollectionExtension
    
         private IServiceCollection RegisterRepositories(ConfigurationManager configurationManager)
         {
-            // Register your repositories here
+            services.AddScoped<IClinicRepository, ClinicRepository>();
+
             return services;
         }
 

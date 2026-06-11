@@ -7,16 +7,15 @@ namespace ProjectName.Application.Clinics.Queries;
 
 public sealed record GetClinicsQuery(SearchParameters? SearchParameters) : IQuery<Result<List<GetClinicResponse>>>;
 
-public sealed class GetClinicsHandler : IQueryHandler<GetClinicsQuery, Result<List<GetClinicResponse>>>
+public sealed class GetClinicsHandler(IClinicRepository clinicRepository) : IQueryHandler<GetClinicsQuery, Result<List<GetClinicResponse>>>
 {
-    ValueTask<Result<List<GetClinicResponse>>> IQueryHandler<GetClinicsQuery, Result<List<GetClinicResponse>>>.Handle(GetClinicsQuery request, CancellationToken cancellationToken)
+    async ValueTask<Result<List<GetClinicResponse>>> IQueryHandler<GetClinicsQuery, Result<List<GetClinicResponse>>>.Handle(GetClinicsQuery request, CancellationToken cancellationToken)
     {
-        var clinics = new List<GetClinicResponse>
-        {
-            new(Guid.NewGuid(), "Clinic 1", "Address 1"),
-            new(Guid.NewGuid(), "Clinic 2", "Address 2")
-        };
+        IReadOnlyList<Domain.Entities.Clinic> clinics = await clinicRepository.GetAsync(request.SearchParameters, cancellationToken);
+        List<GetClinicResponse> responses = clinics
+            .Select(clinic => new GetClinicResponse(clinic.Id, clinic.Name, clinic.Address))
+            .ToList();
 
-        return ValueTask.FromResult(Result.Ok(clinics));
+        return Result.Ok(responses);
     }
 }
