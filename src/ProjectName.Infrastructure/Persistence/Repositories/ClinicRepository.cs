@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ProjectName.Application.Clinics.Common;
 using ProjectName.Application.Common.Search;
 using ProjectName.Domain.Entities;
 using ProjectName.Infrastructure.Common.Search;
-using System.Linq.Expressions;
 
 namespace ProjectName.Infrastructure.Persistence.Repositories;
 

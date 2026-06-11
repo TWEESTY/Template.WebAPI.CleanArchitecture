@@ -14,24 +14,24 @@ public static class UpdatePetEndpoint
 {
     public static async Task<Results<Ok<GetPetCommonResponseEndpoint>, UnauthorizedHttpResult, ForbidHttpResult, NotFound, ValidationProblem, InternalServerError>> HandleAsync(
         [FromServices] IMediator mediator,
-        [FromRoute] Guid id, 
+        [FromRoute] Guid id,
         [FromBody] UpdatePetEndpointRequest request)
     {
         Result<GetPetResponse> result = await mediator.Send(new UpdatePetCommand(id, request.Name, request.BirthDate));
 
-        if(result.IsSuccess)
+        if (result.IsSuccess)
             return TypedResults.Ok(GetPetCommonResponseEndpoint.Create(result.Value));
 
-        if(result.HasError<UnauthorizedError>())
+        if (result.HasError<UnauthorizedError>())
             return TypedResults.Unauthorized();
-        
-        if(result.HasError<ForbiddenError>())
+
+        if (result.HasError<ForbiddenError>())
             return TypedResults.Forbid();
 
-        if(result.HasError<NotFoundError>())
+        if (result.HasError<NotFoundError>())
             return TypedResults.NotFound();
 
-        if(result.HasError<ValidationError>())
+        if (result.HasError<ValidationError>())
             return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
 
         return TypedResults.InternalServerError();

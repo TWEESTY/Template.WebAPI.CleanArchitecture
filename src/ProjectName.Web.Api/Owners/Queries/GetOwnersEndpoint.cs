@@ -17,9 +17,12 @@ public static class GetOwnersEndpoint
     {
         Result<List<GetOwnerResponse>> result = await mediator.Send(new GetOwnersQuery(searchParameters?.ToApplicationSearchParameters()));
 
-        if (result.IsSuccess) return TypedResults.Ok(result.Value.Select(GetOwnerCommonResponseEndpoint.Create).ToList());
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
+        if (result.IsSuccess)
+            return TypedResults.Ok(result.Value.Select(GetOwnerCommonResponseEndpoint.Create).ToList());
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
 
         return TypedResults.InternalServerError();
     }

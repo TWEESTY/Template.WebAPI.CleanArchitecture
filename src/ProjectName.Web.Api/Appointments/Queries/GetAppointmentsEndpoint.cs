@@ -17,9 +17,12 @@ public static class GetAppointmentsEndpoint
     {
         Result<List<GetAppointmentResponse>> result = await mediator.Send(new GetAppointmentsQuery(searchParameters?.ToApplicationSearchParameters()));
 
-        if (result.IsSuccess) return TypedResults.Ok(result.Value.Select(GetAppointmentCommonResponseEndpoint.Create).ToList());
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
+        if (result.IsSuccess)
+            return TypedResults.Ok(result.Value.Select(GetAppointmentCommonResponseEndpoint.Create).ToList());
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
 
         return TypedResults.InternalServerError();
     }

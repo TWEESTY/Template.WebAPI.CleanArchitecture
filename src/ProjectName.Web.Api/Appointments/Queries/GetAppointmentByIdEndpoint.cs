@@ -16,10 +16,14 @@ public static class GetAppointmentByIdEndpoint
     {
         Result<GetAppointmentResponse> result = await mediator.Send(new GetAppointmentByIdQuery(id));
 
-        if (result.IsSuccess) return TypedResults.Ok(GetAppointmentCommonResponseEndpoint.Create(result.Value));
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
-        if (result.HasError<NotFoundError>()) return TypedResults.NotFound();
+        if (result.IsSuccess)
+            return TypedResults.Ok(GetAppointmentCommonResponseEndpoint.Create(result.Value));
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
+        if (result.HasError<NotFoundError>())
+            return TypedResults.NotFound();
 
         return TypedResults.InternalServerError();
     }

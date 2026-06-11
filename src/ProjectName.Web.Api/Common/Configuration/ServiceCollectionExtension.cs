@@ -29,7 +29,7 @@ public static class ServiceCollectionExtension
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
             });
 
-        services.AddLocalization();
+            services.AddLocalization();
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 options.SetDefaultCulture(_supportedCultures[0])

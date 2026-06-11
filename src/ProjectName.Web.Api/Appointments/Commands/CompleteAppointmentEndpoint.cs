@@ -17,11 +17,16 @@ public static class CompleteAppointmentEndpoint
     {
         Result<GetAppointmentResponse> result = await mediator.Send(new CompleteAppointmentCommand(id));
 
-        if (result.IsSuccess) return TypedResults.Ok(GetAppointmentCommonResponseEndpoint.Create(result.Value));
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
-        if (result.HasError<NotFoundError>()) return TypedResults.NotFound();
-        if (result.HasError<ValidationError>()) return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
+        if (result.IsSuccess)
+            return TypedResults.Ok(GetAppointmentCommonResponseEndpoint.Create(result.Value));
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
+        if (result.HasError<NotFoundError>())
+            return TypedResults.NotFound();
+        if (result.HasError<ValidationError>())
+            return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
 
         return TypedResults.InternalServerError();
     }

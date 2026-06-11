@@ -18,7 +18,7 @@ public sealed class UnhandledExceptionBehavior<TMessage, TResponse>
     where TResponse : ResultBase, new()
 {
     private readonly ILogger<UnhandledExceptionBehavior<TMessage, TResponse>> _logger = logger;
-    
+
     public async ValueTask<TResponse> Handle(
         TMessage message,
         MessageHandlerDelegate<TMessage, TResponse> next,

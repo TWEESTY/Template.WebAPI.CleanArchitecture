@@ -1,6 +1,6 @@
-using ProjectName.Application.Common.Search;
 using System.Linq.Expressions;
 using System.Reflection;
+using ProjectName.Application.Common.Search;
 
 namespace ProjectName.Infrastructure.Common.Search;
 

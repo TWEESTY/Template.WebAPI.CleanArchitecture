@@ -17,9 +17,12 @@ public static class GetVaccinesEndpoint
     {
         Result<List<GetVaccineResponse>> result = await mediator.Send(new GetVaccinesQuery(searchParameters?.ToApplicationSearchParameters()));
 
-        if (result.IsSuccess) return TypedResults.Ok(result.Value.Select(GetVaccineCommonResponseEndpoint.Create).ToList());
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
+        if (result.IsSuccess)
+            return TypedResults.Ok(result.Value.Select(GetVaccineCommonResponseEndpoint.Create).ToList());
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
 
         return TypedResults.InternalServerError();
     }

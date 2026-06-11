@@ -1,12 +1,12 @@
 using FluentResults;
 using Mediator;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using ProjectName.Application.Common.Errors;
-using ProjectName.Web.Api.Common.Search;
 using ProjectName.Application.Pets.Common;
 using ProjectName.Application.Pets.Queries;
+using ProjectName.Web.Api.Common.Search;
 using ProjectName.Web.Api.Pets.Common;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ProjectName.Web.Api.Pets.Queries;
 
@@ -20,13 +20,13 @@ public static class GetPetsEndpoint
                 searchParameters?.ToApplicationSearchParameters()
         ));
 
-        if(result.IsSuccess)
+        if (result.IsSuccess)
             return TypedResults.Ok(result.Value.Select(x => GetPetCommonResponseEndpoint.Create(x)).ToList());
 
-        if(result.HasError<UnauthorizedError>())
+        if (result.HasError<UnauthorizedError>())
             return TypedResults.Unauthorized();
-        
-        if(result.HasError<ForbiddenError>())
+
+        if (result.HasError<ForbiddenError>())
             return TypedResults.Forbid();
 
         return TypedResults.InternalServerError();

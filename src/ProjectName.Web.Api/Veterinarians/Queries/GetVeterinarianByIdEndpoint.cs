@@ -16,10 +16,14 @@ public static class GetVeterinarianByIdEndpoint
     {
         Result<GetVeterinarianResponse> result = await mediator.Send(new GetVeterinarianByIdQuery(id));
 
-        if (result.IsSuccess) return TypedResults.Ok(GetVeterinarianCommonResponseEndpoint.Create(result.Value));
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
-        if (result.HasError<NotFoundError>()) return TypedResults.NotFound();
+        if (result.IsSuccess)
+            return TypedResults.Ok(GetVeterinarianCommonResponseEndpoint.Create(result.Value));
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
+        if (result.HasError<NotFoundError>())
+            return TypedResults.NotFound();
 
         return TypedResults.InternalServerError();
     }

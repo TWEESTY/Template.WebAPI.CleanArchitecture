@@ -17,9 +17,12 @@ public static class GetVeterinariansEndpoint
     {
         Result<List<GetVeterinarianResponse>> result = await mediator.Send(new GetVeterinariansQuery(searchParameters?.ToApplicationSearchParameters()));
 
-        if (result.IsSuccess) return TypedResults.Ok(result.Value.Select(GetVeterinarianCommonResponseEndpoint.Create).ToList());
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
+        if (result.IsSuccess)
+            return TypedResults.Ok(result.Value.Select(GetVeterinarianCommonResponseEndpoint.Create).ToList());
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
 
         return TypedResults.InternalServerError();
     }

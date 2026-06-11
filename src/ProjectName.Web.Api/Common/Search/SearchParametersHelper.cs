@@ -37,7 +37,8 @@ public static class SearchParametersHelper
             else
             {
                 var leaf = ParseLeafFilter(f);
-                if (leaf != null) leafFilters.Add(leaf);
+                if (leaf != null)
+                    leafFilters.Add(leaf);
             }
         }
 
@@ -61,7 +62,8 @@ public static class SearchParametersHelper
             else
             {
                 var leaf = ParseLeafFilter(child);
-                if (leaf != null) items.Add(new FilterCriteriaLeaf(leaf));
+                if (leaf != null)
+                    items.Add(new FilterCriteriaLeaf(leaf));
             }
         }
 

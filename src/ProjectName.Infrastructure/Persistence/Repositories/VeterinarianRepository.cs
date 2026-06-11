@@ -1,9 +1,9 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using ProjectName.Application.Common.Search;
 using ProjectName.Application.Veterinarians.Common;
 using ProjectName.Domain.Entities;
 using ProjectName.Infrastructure.Common.Search;
-using System.Linq.Expressions;
 
 namespace ProjectName.Infrastructure.Persistence.Repositories;
 

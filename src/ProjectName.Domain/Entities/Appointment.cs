@@ -1,5 +1,5 @@
-using ProjectName.Domain.Enums;
 using ProjectName.Domain.Common.Guards;
+using ProjectName.Domain.Enums;
 
 namespace ProjectName.Domain.Entities;
 

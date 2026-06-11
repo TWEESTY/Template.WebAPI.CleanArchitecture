@@ -16,10 +16,14 @@ public static class GetVaccineByIdEndpoint
     {
         Result<GetVaccineResponse> result = await mediator.Send(new GetVaccineByIdQuery(id));
 
-        if (result.IsSuccess) return TypedResults.Ok(GetVaccineCommonResponseEndpoint.Create(result.Value));
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
-        if (result.HasError<NotFoundError>()) return TypedResults.NotFound();
+        if (result.IsSuccess)
+            return TypedResults.Ok(GetVaccineCommonResponseEndpoint.Create(result.Value));
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
+        if (result.HasError<NotFoundError>())
+            return TypedResults.NotFound();
 
         return TypedResults.InternalServerError();
     }

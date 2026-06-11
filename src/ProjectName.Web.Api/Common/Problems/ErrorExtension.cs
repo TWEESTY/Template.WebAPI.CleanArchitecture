@@ -5,7 +5,8 @@ namespace ProjectName.Web.Api.Common.Problems;
 
 public static class ErrorExtension
 {
-    extension(IEnumerable<IError> errors){  
+    extension(IEnumerable<IError> errors)
+    {
 
         /// <summary>
         /// Converts validation errors to a dictionary suitable for problem details.
@@ -33,5 +34,5 @@ public static class ErrorExtension
 
             return problemErrors;
         }
-    } 
+    }
 }

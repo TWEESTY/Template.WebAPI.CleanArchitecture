@@ -6,7 +6,7 @@ namespace ProjectName.Domain.Entities;
 public class Clinic : EntityBase
 {
     private readonly List<Guid> _veterinarianIds = [];
-    
+
     public string Name { get; private set; } = null!;
     public string Address { get; private set; } = null!;
     public IReadOnlyCollection<Guid> VeterinarianIds => _veterinarianIds;

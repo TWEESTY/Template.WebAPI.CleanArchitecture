@@ -13,7 +13,7 @@ namespace ProjectName.Web.Api.Pets.Commands;
 public static class CreatePetEndpoint
 {
     public static async Task<Results<Ok<GetPetCommonResponseEndpoint>, UnauthorizedHttpResult, ForbidHttpResult, ValidationProblem, InternalServerError>> HandleAsync(
-        [FromServices] IMediator mediator, 
+        [FromServices] IMediator mediator,
         [FromBody] CreatePetEndpointRequest request)
     {
         Result<GetPetResponse> result = await mediator.Send(new CreatePetCommand(
@@ -22,16 +22,16 @@ public static class CreatePetEndpoint
             request.Species,
             request.BirthDate));
 
-        if(result.IsSuccess)
+        if (result.IsSuccess)
             return TypedResults.Ok(GetPetCommonResponseEndpoint.Create(result.Value));
 
-        if(result.HasError<UnauthorizedError>())
+        if (result.HasError<UnauthorizedError>())
             return TypedResults.Unauthorized();
-        
-        if(result.HasError<ForbiddenError>())
+
+        if (result.HasError<ForbiddenError>())
             return TypedResults.Forbid();
 
-        if(result.HasError<ValidationError>())
+        if (result.HasError<ValidationError>())
             return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
 
         return TypedResults.InternalServerError();

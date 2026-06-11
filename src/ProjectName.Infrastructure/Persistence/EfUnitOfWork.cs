@@ -73,7 +73,7 @@ public class EfUnitOfWork : IUnitOfWork
             await _unitOfWorkManager.EndUnitOfWorkAsync(this, forceRollback: true);
 
         _currentTransaction?.Dispose();
-        
+
         // Suppress finalization.
         GC.SuppressFinalize(this);
     }

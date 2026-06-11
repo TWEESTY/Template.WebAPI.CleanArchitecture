@@ -1,18 +1,19 @@
-using System.Text.RegularExpressions;
 using System.IO;
+using System.Text.RegularExpressions;
 using Azure.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Web;
-using ProjectName.Application.Clinics.Common;
 using ProjectName.Application.Appointments.Common;
+using ProjectName.Application.Clinics.Common;
+using ProjectName.Application.Common.Persistence;
 using ProjectName.Application.Owners.Common;
 using ProjectName.Application.Pets.Common;
 using ProjectName.Application.Vaccines.Common;
@@ -22,7 +23,6 @@ using ProjectName.Infrastructure.GraphApi.Options;
 using ProjectName.Infrastructure.Persistence;
 using ProjectName.Infrastructure.Persistence.Options;
 using ProjectName.Infrastructure.Persistence.Repositories;
-using ProjectName.Application.Common.Persistence;
 
 namespace ProjectName.Infrastructure.Common.Configuration;
 
@@ -31,7 +31,7 @@ public static class ServiceCollectionExtension
     private static readonly Regex LoginPathRegex = new(@"^/api/v\d+/account/login$", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     extension(IServiceCollection services)
-    {        
+    {
         public IServiceCollection AddInfrastructureServices(ConfigurationManager configurationManager, bool isDevelopment)
         {
             RegisterAuthentication(services, configurationManager)
@@ -106,7 +106,8 @@ public static class ServiceCollectionExtension
                     .EnableTokenAcquisitionToCallDownstreamApi()
                     .AddDistributedTokenCaches();
 
-            services.AddAuthentication(options => {
+            services.AddAuthentication(options =>
+            {
                 options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.DefaultScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 options.DefaultSignOutScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -162,7 +163,7 @@ public static class ServiceCollectionExtension
 
             return services;
         }
-    
+
         private IServiceCollection RegisterGraphApiOnBehalfApp(ConfigurationManager configurationManager)
         {
 
@@ -189,7 +190,7 @@ public static class ServiceCollectionExtension
 
             return services;
         }
-   
+
         private IServiceCollection RegisterRepositories(ConfigurationManager configurationManager)
         {
             services.AddScoped<IClinicRepository, ClinicRepository>();

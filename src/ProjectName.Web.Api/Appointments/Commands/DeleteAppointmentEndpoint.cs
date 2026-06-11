@@ -15,11 +15,16 @@ public static class DeleteAppointmentEndpoint
     {
         Result result = await mediator.Send(new DeleteAppointmentCommand(id));
 
-        if (result.IsSuccess) return TypedResults.NoContent();
-        if (result.HasError<UnauthorizedError>()) return TypedResults.Unauthorized();
-        if (result.HasError<ForbiddenError>()) return TypedResults.Forbid();
-        if (result.HasError<NotFoundError>()) return TypedResults.NotFound();
-        if (result.HasError<ValidationError>()) return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
+        if (result.IsSuccess)
+            return TypedResults.NoContent();
+        if (result.HasError<UnauthorizedError>())
+            return TypedResults.Unauthorized();
+        if (result.HasError<ForbiddenError>())
+            return TypedResults.Forbid();
+        if (result.HasError<NotFoundError>())
+            return TypedResults.NotFound();
+        if (result.HasError<ValidationError>())
+            return TypedResults.ValidationProblem(result.Errors.ToProblemErrors());
 
         return TypedResults.InternalServerError();
     }
