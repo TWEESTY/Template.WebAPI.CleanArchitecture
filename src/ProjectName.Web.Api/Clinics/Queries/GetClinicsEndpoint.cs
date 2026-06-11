@@ -1,22 +1,39 @@
+using FluentResults;
+using Mediator;
 using Microsoft.AspNetCore.Http.HttpResults;
+using ProjectName.Application.Clinics.Common;
+using ProjectName.Application.Clinics.Queries;
+using ProjectName.Application.Common.Errors;
+using ProjectName.Web.Api.Clinics.Common;
 using ProjectName.Web.Api.Common.Search;
 
 namespace ProjectName.Web.Api.Clinics.Queries;
 
 public static class GetClinicsEndpoint
 {
-    public static Results<Ok<GetClinicsEndpointResponse>, ValidationProblem, UnauthorizedHttpResult, InternalServerError> HandleAsync(SearchParameters searchParameters)
+    public static async Task<Results<Ok<List<GetClinicCommonResponseEndpoint>>, UnauthorizedHttpResult, ForbidHttpResult, InternalServerError>> HandleAsync(
+        IMediator mediator,
+        SearchParameters? searchParameters)
     {
-        var clinics = new List<GetClinicsEndpointResponseItem>
+        Result<List<GetClinicResponse>> result = await mediator.Send(new GetClinicsQuery(
+            searchParameters?.ToApplicationSearchParameters()
+        ));
+
+        if (result.IsSuccess)
         {
-            new(Guid.NewGuid(), "Clinic 1", "Address 1"),
-            new(Guid.NewGuid(), "Clinic 2", "Address 2")
-        };
+            return TypedResults.Ok(result.Value.Select(GetClinicCommonResponseEndpoint.Create).ToList());
+        }
 
-        return TypedResults.Ok(new GetClinicsEndpointResponse(clinics));
+        if (result.HasError<UnauthorizedError>())
+        {
+            return TypedResults.Unauthorized();
+        }
+
+        if (result.HasError<ForbiddenError>())
+        {
+            return TypedResults.Forbid();
+        }
+
+        return TypedResults.InternalServerError();
     }
-
-
-    public record GetClinicsEndpointResponse(List<GetClinicsEndpointResponseItem> Clinics);
-    public record GetClinicsEndpointResponseItem(Guid Id, string Name, string Address);
 }
