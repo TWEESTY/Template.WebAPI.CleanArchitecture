@@ -22,6 +22,7 @@ using ProjectName.Infrastructure.GraphApi.Options;
 using ProjectName.Infrastructure.Persistence;
 using ProjectName.Infrastructure.Persistence.Options;
 using ProjectName.Infrastructure.Persistence.Repositories;
+using ProjectName.Application.Common.Persistence;
 
 namespace ProjectName.Infrastructure.Common.Configuration;
 
@@ -67,6 +68,9 @@ public static class ServiceCollectionExtension
             });
 
             services.AddScoped<ApplicationDbContextInitialiser>();
+            services.AddScoped<IUnitOfWorkManager, EfUnitOfWorkManager>(
+                serviceProvider => new EfUnitOfWorkManager(serviceProvider.GetRequiredService<AppDbContext>())
+            );
 
             return services;
         }

@@ -7,7 +7,8 @@ namespace ProjectName.Application.Clinics.Commands;
 
 public sealed record AddVeterinarianToClinicCommand(Guid ClinicId, Guid VeterinarianId) : ICommand<Result>;
 
-public sealed class AddVeterinarianToClinicHandler(IClinicRepository clinicRepository) : ICommandHandler<AddVeterinarianToClinicCommand, Result>
+public sealed class AddVeterinarianToClinicHandler(
+    IClinicRepository clinicRepository) : ICommandHandler<AddVeterinarianToClinicCommand, Result>
 {
     async ValueTask<Result> ICommandHandler<AddVeterinarianToClinicCommand, Result>.Handle(AddVeterinarianToClinicCommand request, CancellationToken cancellationToken)
     {
