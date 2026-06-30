@@ -1,0 +1,25 @@
+meta {
+  name: Create Owner
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{Host}}/api/owners
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName": "Sam",
+    "lastName": "Taylor",
+    "email": "sam.taylor@example.com",
+    "phoneNumber": "+15551234567"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

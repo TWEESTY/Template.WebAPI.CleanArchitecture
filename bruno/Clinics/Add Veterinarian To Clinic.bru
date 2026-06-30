@@ -1,0 +1,22 @@
+meta {
+  name: Add Veterinarian To Clinic
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{Host}}/api/clinics/00000000-0000-0000-0000-000000000006/veterinarians
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "veterinarianId": "00000000-0000-0000-0000-000000000004"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

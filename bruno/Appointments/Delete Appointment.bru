@@ -1,0 +1,16 @@
+meta {
+  name: Delete Appointment
+  type: http
+  seq: 4
+}
+
+delete {
+  url: {{Host}}/api/appointments/00000000-0000-0000-0000-000000000007
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

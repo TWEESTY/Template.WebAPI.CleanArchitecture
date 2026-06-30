@@ -1,0 +1,34 @@
+meta {
+  name: Update Pet
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{Host}}/api/pets/00000000-0000-0000-0000-000000000001
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Buddy Updated",
+    "birthDate": "2020-01-01T00:00:00Z"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+tests {
+  test("returns updated pet with species id", function () {
+    const body = res.getBody();
+    const speciesId = body.speciesId ?? body.specieId;
+
+    expect(res.getStatus()).to.equal(200);
+    expect(body.id).to.not.equal(undefined);
+    expect(speciesId).to.not.equal(undefined);
+  });
+}

@@ -1,0 +1,36 @@
+meta {
+  name: Create Pet
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{Host}}/api/pets
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "ownerId": "00000000-0000-0000-0000-000000000001",
+    "name": "Buddy",
+    "species": 0,
+    "birthDate": "2020-01-01T00:00:00Z"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+tests {
+  test("returns pet with species id", function () {
+    const body = res.getBody();
+    const speciesId = body.speciesId ?? body.specieId;
+
+    expect(res.getStatus()).to.equal(200);
+    expect(body.id).to.not.equal(undefined);
+    expect(speciesId).to.not.equal(undefined);
+  });
+}

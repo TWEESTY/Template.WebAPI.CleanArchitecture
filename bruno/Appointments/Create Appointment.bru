@@ -1,0 +1,27 @@
+meta {
+  name: Create Appointment
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{Host}}/api/appointments
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "petId": "00000000-0000-0000-0000-000000000001",
+    "veterinarianId": "00000000-0000-0000-0000-000000000004",
+    "clinicId": "00000000-0000-0000-0000-000000000006",
+    "startAt": "2026-07-01T09:00:00Z",
+    "endAt": "2026-07-01T09:30:00Z",
+    "reason": "Annual wellness exam"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

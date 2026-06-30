@@ -1,0 +1,30 @@
+meta {
+  name: Get Pets
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{Host}}/api/pets
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+tests {
+  test("returns pets with species id", function () {
+    const body = res.getBody();
+
+    expect(res.getStatus()).to.equal(200);
+    expect(Array.isArray(body)).to.equal(true);
+
+    if (body.length > 0) {
+      const speciesId = body[0].speciesId ?? body[0].specieId;
+      expect(speciesId).to.not.equal(undefined);
+    }
+  });
+}

@@ -1,0 +1,16 @@
+meta {
+  name: Get Photo
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{Host}}/api/accounts/photo
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

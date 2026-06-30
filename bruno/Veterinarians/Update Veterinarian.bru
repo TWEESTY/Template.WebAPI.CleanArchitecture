@@ -1,0 +1,25 @@
+meta {
+  name: Update Veterinarian
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{Host}}/api/veterinarians/00000000-0000-0000-0000-000000000004
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName": "Alex",
+    "lastName": "Morgan Updated",
+    "email": "alex.morgan.updated@example.com",
+    "licenseNumber": "LIC-1001"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

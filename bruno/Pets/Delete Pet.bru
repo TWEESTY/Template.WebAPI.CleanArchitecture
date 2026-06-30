@@ -1,0 +1,16 @@
+meta {
+  name: Delete Pet
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{Host}}/api/pets/00000000-0000-0000-0000-000000000001
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Update Owner
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{Host}}/api/owners/00000000-0000-0000-0000-000000000002
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName": "Sam",
+    "lastName": "Taylor Updated",
+    "email": "sam.taylor.updated@example.com",
+    "phoneNumber": "+15557654321"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

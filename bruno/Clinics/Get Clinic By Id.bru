@@ -1,0 +1,16 @@
+meta {
+  name: Get Clinic By Id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{Host}}/api/clinics/00000000-0000-0000-0000-000000000006
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

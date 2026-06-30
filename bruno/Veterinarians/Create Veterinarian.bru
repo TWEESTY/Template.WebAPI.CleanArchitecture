@@ -1,0 +1,25 @@
+meta {
+  name: Create Veterinarian
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{Host}}/api/veterinarians
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "firstName": "Alex",
+    "lastName": "Morgan",
+    "email": "alex.morgan@example.com",
+    "licenseNumber": "LIC-1001"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,26 @@
+auth {
+  mode: oauth2
+}
+
+auth:oauth2 {
+  grant_type: authorization_code
+  callback_url: {{Host}}/signin-oidc
+  authorization_url: https://login.microsoftonline.com/a4debdf3-9e4e-466a-85bf-73881152133d/oauth2/v2.0/authorize
+  access_token_url: https://login.microsoftonline.com/a4debdf3-9e4e-466a-85bf-73881152133d/oauth2/v2.0/token
+  refresh_token_url: 
+  client_id: {{process.env.client_id}}
+  client_secret: {{process.env.client_secret}}
+  scope: {{process.env.scope}}
+  state: 
+  pkce: false
+  credentials_placement: body
+  credentials_id: credentials
+  token_placement: header
+  token_header_prefix: Bearer
+  auto_fetch_token: true
+  auto_refresh_token: false
+}
+
+vars:pre-request {
+  Host: https://localhost:7310
+}

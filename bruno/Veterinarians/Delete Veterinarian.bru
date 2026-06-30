@@ -1,0 +1,16 @@
+meta {
+  name: Delete Veterinarian
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{Host}}/api/veterinarians/00000000-0000-0000-0000-000000000004
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

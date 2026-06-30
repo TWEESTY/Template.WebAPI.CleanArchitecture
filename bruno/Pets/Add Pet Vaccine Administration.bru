@@ -1,0 +1,24 @@
+meta {
+  name: Add Pet Vaccine Administration
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{Host}}/api/pets/00000000-0000-0000-0000-000000000001/vaccine-administrations
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "vaccineId": "00000000-0000-0000-0000-000000000003",
+    "veterinarianId": "00000000-0000-0000-0000-000000000004",
+    "administrationOn": "2026-01-15"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,28 @@
+meta {
+  name: Create Owner With Initial Pet
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{Host}}/api/owners/with-initial-pet
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "ownerFirstName": "Jamie",
+    "ownerLastName": "Lee",
+    "ownerEmail": "jamie.lee@example.com",
+    "ownerPhoneNumber": "+15550001111",
+    "petName": "Coco",
+    "petSpecies": 0,
+    "petBirthDate": "2022-03-15T00:00:00Z"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

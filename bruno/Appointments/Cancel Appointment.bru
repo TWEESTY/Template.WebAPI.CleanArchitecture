@@ -1,0 +1,16 @@
+meta {
+  name: Cancel Appointment
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{Host}}/api/appointments/00000000-0000-0000-0000-000000000007/cancel
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

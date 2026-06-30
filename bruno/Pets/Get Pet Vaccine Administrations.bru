@@ -1,0 +1,16 @@
+meta {
+  name: Get Pet Vaccine Administrations
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{Host}}/api/pets/00000000-0000-0000-0000-000000000001/vaccine-administrations
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

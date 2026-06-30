@@ -1,0 +1,23 @@
+meta {
+  name: Update Clinic
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{Host}}/api/clinics/00000000-0000-0000-0000-000000000006
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Downtown Vet Clinic Updated",
+    "address": "456 Main Street"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

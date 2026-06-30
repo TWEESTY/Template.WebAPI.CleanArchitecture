@@ -1,0 +1,23 @@
+meta {
+  name: Create Clinic
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{Host}}/api/clinics
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Downtown Vet Clinic",
+    "address": "123 Main Street"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

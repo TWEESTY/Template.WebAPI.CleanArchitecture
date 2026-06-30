@@ -1,0 +1,16 @@
+meta {
+  name: Get Vaccine By Id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{Host}}/api/vaccines/00000000-0000-0000-0000-000000000003
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

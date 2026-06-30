@@ -1,0 +1,16 @@
+meta {
+  name: Delete Clinic
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{Host}}/api/clinics/00000000-0000-0000-0000-000000000006
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
