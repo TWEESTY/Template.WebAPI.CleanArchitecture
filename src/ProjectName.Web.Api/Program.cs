@@ -26,10 +26,7 @@ try
     WebApplication app = builder.Build();
     _ = await app.ConfigureWebApplicationAsync(isDevelopment);
 
-    if (!isBuildTimeOpenApiGeneration)
-    {
-        app.Run();
-    }
+    app.Run();
 }
 catch (Exception ex)
 {

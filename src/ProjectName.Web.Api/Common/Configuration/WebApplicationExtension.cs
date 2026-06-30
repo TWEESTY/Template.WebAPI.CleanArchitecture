@@ -28,8 +28,11 @@ public static class WebApplicationExtension
 
             _ = app.UseRequestLocalization();
 
-            _ = app.UseAuthentication();
-            _ = app.UseAuthorization();
+            if (!isOpenApiExportExecution)
+            {
+                _ = app.UseAuthentication();
+                _ = app.UseAuthorization();
+            }
 
             _ = app.UseStatusCodePages();
 

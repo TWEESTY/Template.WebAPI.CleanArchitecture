@@ -4,11 +4,6 @@
     "title": "ProjectName.Web.Api | v1",
     "version": "1.0.0"
   },
-  "servers": [
-    {
-      "url": "https://localhost:7310/"
-    }
-  ],
   "paths": {
     "/api/accounts/login": {
       "get": {
@@ -72,6 +67,23 @@
         }
       }
     },
+    "/api/accounts/photo": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Retrieves the authenticated user's profile photo from Graph API.",
+        "description": "This endpoint returns the photo bytes of the currently authenticated user from Microsoft Graph.",
+        "responses": {
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/pets": {
       "get": {
         "tags": [
@@ -89,6 +101,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetPetCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -216,6 +238,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -225,9 +250,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -303,6 +325,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -312,9 +337,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -393,6 +415,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -402,9 +427,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -443,6 +465,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -452,9 +477,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -479,6 +501,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetClinicCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -606,6 +638,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -615,9 +650,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -645,6 +677,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -654,9 +689,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -696,6 +728,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -705,9 +740,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -746,6 +778,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -755,9 +790,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -780,6 +812,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetVeterinarianCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -901,6 +943,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -910,9 +955,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -938,6 +980,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -947,9 +992,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -972,6 +1014,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetVaccineCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -1093,6 +1145,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1102,9 +1157,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1130,6 +1182,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1139,9 +1194,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1164,6 +1216,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetOwnerCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -1285,6 +1347,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1294,9 +1359,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1322,6 +1384,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1331,9 +1396,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1398,6 +1460,16 @@
                   "items": {
                     "$ref": "#/components/schemas/GetAppointmentCommonResponseEndpoint"
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
                 }
               }
             }
@@ -1502,6 +1574,9 @@
           "204": {
             "description": "No Content"
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1511,9 +1586,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1548,6 +1620,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1557,9 +1632,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1594,6 +1666,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1603,9 +1678,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1642,6 +1714,9 @@
               }
             }
           },
+          "404": {
+            "description": "Not Found"
+          },
           "400": {
             "description": "Bad Request",
             "content": {
@@ -1651,9 +1726,6 @@
                 }
               }
             }
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -1973,12 +2045,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -2070,7 +2138,8 @@
         "required": [
           "id",
           "name",
-          "birthDate"
+          "birthDate",
+          "specieId"
         ],
         "type": "object",
         "properties": {
@@ -2082,8 +2151,19 @@
             "type": "string"
           },
           "birthDate": {
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "format": "date-time"
+          },
+          "specieId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": [
+              "integer",
+              "string"
+            ],
+            "format": "int32"
           }
         }
       },
@@ -2319,11 +2399,9 @@
         "type": "oauth2",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://login.microsoftonline.com/a4debdf3-9e4e-466a-85bf-73881152133d/oauth2/v2.0/authorize",
-            "tokenUrl": "https://login.microsoftonline.com/a4debdf3-9e4e-466a-85bf-73881152133d/oauth2/v2.0/token",
-            "scopes": {
-              "api://48c716ab-d5e1-4997-a155-1322ed5ed9bd/default": "Access API"
-            }
+            "authorizationUrl": "https://login.microsoftonline.com//oauth2/v2.0/authorize",
+            "tokenUrl": "https://login.microsoftonline.com//oauth2/v2.0/token",
+            "scopes": { }
           }
         }
       }
@@ -2331,7 +2409,7 @@
   },
   "security": [
     {
-      "OAuth2": []
+      "OAuth2": [ ]
     }
   ],
   "tags": [

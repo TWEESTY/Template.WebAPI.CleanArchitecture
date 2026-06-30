@@ -5,14 +5,9 @@ meta {
 }
 
 get {
-  url: {{Host}}/api/clinics?page=0&pageSize=20
+  url: {{Host}}/api/clinics
   body: json
   auth: inherit
-}
-
-params:query {
-  page: 0
-  pageSize: 20
 }
 
 settings {
